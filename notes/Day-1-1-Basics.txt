@@ -1,0 +1,314 @@
+Jnaapti:
+========
+
+node 6.11.2
+
+npm 3.10.10
+
+once you update node npm will also get updated.
+
+what is Node:
+nodeJS is run time to run javascript on server side.
+
+Node JS is not MVC framework.
+
+what is NPM:
+node package manager - it is used insatll dependeniecs for you project
+
+
+once you type node on cmd prmt you will get repal environment
+repal env
+
+
+Dynamic typing:
+===============
+
+> var abc = 'hello'
+undefined
+> typeof(abc)
+'string'
+> abc = 10
+10
+> 
+
+variable dont have type. data will have type. 
+
+for function -> it create the function. but it will not excute the function.
+>function foo() {
+	....
+}
+
+undefined
+
+-------
+
+INR1600230:nvm ManjunathM$ node
+> typeof(10)
+'number'
+> typeof(10.2)
+'number'
+> 
+
+All type are float
+
+-----
+
+int i = 10
+
+
+var i = 10 
+
+
+=======
+
+
+syntax of a function
+
+function sum(x,y) {
+... return x+y;
+... }
+undefined
+> 
+
+
+to call a function:
+
+> sum(2,5)
+7
+> 
+
+----
+sum(2)
+
+in this case less param:
+> sum(2)
+NaN
+
+in case extra param
+> sum(2,3,4)
+5
+
+-------------
+
+> function sum(){
+... console.log(arguments);
+... }
+undefined
+> sum(2,3,4)
+{ '0': 2, '1': 3, '2': 4 }
+undefined
+
+here array is maintain as hashtable
+
+> 
+------------
+
+
+> JSON.stringify({ '0': 2, '1': 3, '2': 4 })
+'{"0":2,"1":3,"2":4}'
+> 
+
+
+
+-----
+
+
+ES6 is equal to ES2015
+
+ECMA script was born to solve cross browser issues (fight b\w netscape, IE, mozilla)
+
+So ECMA standardized on java scipt to avoid fight and monploy
+
+-----------
+
+
+ES6 has major changes. like they had solved major issues with ES5. So that is why ES6 looks major change.
+let const spread class etc... all are ES6
+
+> function sum(x, y=0){
+... return x+y;
+... }
+undefined
+> sum(2,3)
+5
+> 
+> 
+> 
+> function sum(...args){
+... console.log(args);
+... }
+undefined
+> sum(2,3,4)
+[ 2, 3, 4 ]
+undefined
+> 
+
+-----------------
+
+
+now we have ES2017 is out...
+do we need to wait for browsers to upgrade then use ES2017
+
+Babel solves this issue
+
+ES6 -> babel -> ES5
+
+so develop in ES6 and use Babel to convert the code into ES5. This is called transpilers.
+So Babel is package/tool.
+
+------------
+
+
+String
+Number
+Boolean
+----
+Arrays
+Objects
+
+Array:
+----
+> var arr = [1,2,3]
+undefined
+> typeof(arr)
+'object'
+> arr[0]
+1
+> arr.length
+3
+> for(let item of arr){
+... console.log(item);
+... }
+1
+2
+3
+undefined
+
+
+var is ES5
+let is ES6
+
+> function foo() {
+... if(true){
+..... var x =10;
+..... }
+... console.log(x);
+... }
+undefined
+> foo()
+10
+undefined
+
+
+> function foo() {
+if(true){
+ let x =10;
+ }
+ console.log(x);
+}
+undefined
+> foo()
+10
+undefined
+
+undefined
+> foo()
+ReferenceError: x is not defined
+    at foo (repl:5:13)
+    at repl:1:1
+    at sigintHandlersWrap (vm.js:22:35)
+    at sigintHandlersWrap (vm.js:73:12)
+    at ContextifyScript.Script.runInThisContext (vm.js:21:12)
+    at REPLServer.defaultEval (repl.js:340:29)
+    at bound (domain.js:280:14)
+    at REPLServer.runBound [as eval] (domain.js:293:12)
+    at REPLServer.<anonymous> (repl.js:538:10)
+    at emitOne (events.js:101:20)
+
+
+So with var it does hoseting.
+
+so with let block scoping is sloved.
+
+------
+
+> 
+> function foo(){
+... x=10;
+... }
+undefined
+> x
+ReferenceError: x is not defined
+    at repl:1:1
+    at sigintHandlersWrap (vm.js:22:35)
+    at sigintHandlersWrap (vm.js:73:12)
+    at ContextifyScript.Script.runInThisContext (vm.js:21:12)
+    at REPLServer.defaultEval (repl.js:340:29)
+    at bound (domain.js:280:14)
+    at REPLServer.runBound [as eval] (domain.js:293:12)
+    at REPLServer.<anonymous> (repl.js:538:10)
+    at emitOne (events.js:101:20)
+    at REPLServer.emit (events.js:188:7)
+> foo()
+undefined
+> x
+10
+
+
+here, issue is memory leaks. Here we have not given any type for x. but still after excuting foo() var x was created and we can access.
+
+----------
+
+
+object:
+
+in ES5 key always string
+
+
+> var obj = {}
+undefined
+> obj.name = 'Manju'
+'Manju'
+> obj.age = 30
+30
+> obj['email'] = 'manju@gmail.com'
+'manju@gmail.com'
+> obj
+{ name: 'Manju', age: 30, email: 'manju@gmail.com' }
+> 
+> obj.name
+'Manju'
+> 
+> obj.place
+undefined
+> 
+> 
+> 
+> Object.keys(obj)
+[ 'name', 'age', 'email' ]
+> 
+> let key = 'name'
+undefined
+> obj[key]
+'Manju'
+> 
+
+> for(let key of Object.keys(obj)){
+... console.log(key, obj[key]);
+... }
+name Manju
+age 30
+email manju@gmail.com
+undefined
+> obj.place = 'Bengaluru'
+'Bengaluru'
+> for(let key of Object.keys(obj)){
+... console.log(key, obj[key]);
+... }
+name Manju
+age 30
+email manju@gmail.com
+place Bengaluru
+undefined
+>
+-

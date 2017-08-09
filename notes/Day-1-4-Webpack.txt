@@ -1,0 +1,48 @@
+TO WRITE React -> we need babel + webpack
+
+
+------
+
+what is webpack
+it is modular bundler
+
+what is modular?
+many dependent .js files are 
+
+
+cretae new folder webpackexample
+
+npm init -y
+
+npm install --save-dev webpack
+
+mkdir src
+
+vim src/entry.js
+vim src/
+
+now to bundle it in single file use below command:
+`npm bin`/webpack src/entry.js dist/bundle.js
+
+
+now to run the single gerenated file use below cmd:
+node dist/bundle.js
+
+you will get error beasue dependence error - ignore or correct it.
+
+now you can do above thing using webpack config file by creating a file and the cmd:
+1. create file webpack.config.js
+	module.export = {
+	entry: './src/entry.js',
+	output:{
+		filename: './dist/bundle.js'
+	}
+}
+
+2. cmd is: `npm bin`/webpack
+
+----
+
+now when time goes the complexity increases with many js file. so you can split all the project releated js file app.js and all third party library js files into vendor.js file
+
+this can be configred in webpack.config.js

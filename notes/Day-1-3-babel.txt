@@ -1,0 +1,64 @@
+Babel
+
+babel-example
+
+INR1600230:nvm ManjunathM$ cd /Users/ManjunathM/ManjunathData/git-project
+INR1600230:git-project ManjunathM$ cd babel-example/
+INR1600230:babel-example ManjunathM$ 
+INR1600230:babel-example ManjunathM$ 
+INR1600230:babel-example ManjunathM$ 
+INR1600230:babel-example ManjunathM$ npm init -y
+Wrote to /Users/ManjunathM/ManjunathData/git-project/babel-example/package.json:
+
+{
+  "name": "babel-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+
+INR1600230:babel-example ManjunathM$ ls
+package.json
+INR1600230:babel-example ManjunathM$ 
+
+INR1600230:babel-example ManjunathM$ ls
+package.json
+INR1600230:babel-example ManjunathM$ vim package.json 
+
+now you have plain project
+and you dont have babel enable in your plain package.
+So, now you should update package.json file and run install. otherwise use below command two do 2 tasks
+
+npm install --save-dev babel-core
+
+Now install three things like:
+npm install --save-dev babel-core babel-cli babel-preset-env
+
+now create .babelrc file
+
+with 
+{
+	"presets": ["env"]
+}
+
+Now compile hello.js by below cmd:
+node_modules/.bin/babel hello.js   => now you will get compiled contents on console. use this in your src code.
+
+
+to put the output in new file use below cmd:
+node_modules/.bin/babel hello.js -o hello.es5.js
+
+short cut cmd is:
+`npm bin`/babel hello.js
+
+the back tick ` will do the job of to land to 'node_modules/.bin'
+similar to, 
+> npm bin
+will yield to => /Users/ManjunathM/ManjunathData/git-project/babel-example/node_modules/.bin

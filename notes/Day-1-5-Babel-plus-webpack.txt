@@ -1,0 +1,50 @@
+Babel + webpack
+
+Now, you have single file. So what webpack does is, it just bundle. But it will not transpile anything (this will be done by babel).
+
+So there are two stages here:
+1. first transpile the js code individually per js file using babel.
+2. next, use webpack to bundle all the js files into one.
+
+
+But both this tasks can be done by webpack itself, below is the way to do it.
+
+
+mkdir babel-webpack-example
+npm init -y
+npm install --save-dev babel-core babel-preset-env webpack
+npm install --save-dev babel-loader
+
+copy webpack.config.js file
+
+module.exports = {
+  entry: './src/entry.js',
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env']
+        }
+      }
+    }]
+  },
+  output: {
+    filename: './dist/bundle.js'
+  }
+}
+
+create entry.js and somemodule.js
+
+then,
+`npm bin`/webpack
+
+node dist/bundle.js 
+
+check if it print Hello on the console
+
+Assigment:
+java script 2017 - upto oops
+babel

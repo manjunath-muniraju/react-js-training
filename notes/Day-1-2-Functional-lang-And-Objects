@@ -1,0 +1,344 @@
+functional language - functional programming (oops are getting outdated)
+
+> 
+> function foo() {}
+undefined
+> typeof(foo)
+'function'
+> foo = 20
+20
+> typeof(foo)
+'number'
+> 
+> 
+> foo()
+TypeError: foo is not a function
+    at repl:1:1
+    at sigintHandlersWrap (vm.js:22:35)
+    at sigintHandlersWrap (vm.js:73:12)
+    at ContextifyScript.Script.runInThisContext (vm.js:21:12)
+    at REPLServer.defaultEval (repl.js:340:29)
+    at bound (domain.js:280:14)
+    at REPLServer.runBound [as eval] (domain.js:293:12)
+    at REPLServer.<anonymous> (repl.js:538:10)
+    at emitOne (events.js:101:20)
+    at REPLServer.emit (events.js:188:7)
+> 
+
+here foo() lost refrence to foo -> function 
+
+------
+
+for 1st class there are three condition:
+
+1. x =10
+2. foo(10)
+3. return 10
+
+so, number are first class
+
+
+fucntion foo() {} ==== shorter form
+
+is equalant to below code
+
+var foo = function foo() {
+	
+}
+
+------
+
+Rule 1:
+
+> 
+> function foo() {}
+undefined
+
+var foo = function foo() {
+	
+}
+
+> var foo = function () {
+... }
+undefined
+> foo()
+undefined
+> var foo = () => {
+... }
+undefined
+> var foo = function (x) {
+... return x*x;
+... }
+undefined
+> foo(3)
+9
+> var foo = (x) => {}
+undefined
+> var foo = (x) => {
+... x*x
+... }
+undefined
+> var foo = (x) => {
+... return x*x;
+... }
+undefined
+> foo(3)
+9
+> var foo = (x) => x*x
+undefined
+> foo(3)
+9
+> var foo = x => x*x
+undefined
+> foo(3)
+9
+> 
+
+----
+
+> var foo = x => x*x
+undefined
+> var bar = foo
+undefined
+> typeof(bar)
+'function'
+> bar(3)
+9
+> foo(3)
+9
+> 
+
+
+Rule 2:
+
+
+> function fooCaller(foo) {
+... foo();
+... }
+undefined
+> function bar() {
+... console.log('Bar');
+... }
+undefined
+> fooCaller(bar)
+Bar
+undefined
+
+
+using Arrow:
+
+> fooCaller(function() {
+... console.log('Bazz');
+... }
+... )
+Bazz
+undefined
+> 
+> 
+> 
+> fooCaller( () => {
+... console.log('Bazz');
+... })
+Bazz
+
+Some more array with arrow. map will call each of array items.
+
+> let a = [1,2,3]
+undefined
+> a.map(function (x) {
+... return x*x;
+... }
+... )
+[ 1, 4, 9 ]
+> 
+> a.map(x => x * x)
+[ 1, 4, 9 ]
+
+----
+
+> let s = ['1','2','3']
+undefined
+> s.map(x => Number(x))
+[ 1, 2, 3 ]
+> 
+
+
+-----
+
+
+let contacts = [{name: 'N1', email: 'e1'}, {name: 'N2', email: 'e2'}]
+undefined
+> contacts.map(contact => contact.name)
+[ 'N1', 'N2' ]
+
+------
+
+filter:
+
+to filter odd and even number
+
+> a
+[ 1, 2, 3 ]
+> a.filter(x => x % 2 == 0)
+[ 2 ]
+> a.filter(x => x % 2 != 0)
+[ 1, 3 ]
+> 
+
+
+use map or filter instead of for loop because of less error prone.
+
+
+-----
+
+Rule 3: return 10
+
+syntax
+
+function with in function (Java 8 also supports)
+
+> 
+> function foo() {
+... function bar() {
+..... console.log('Bar');
+..... }
+... return bar;
+... }
+undefined
+> let x = foo()
+undefined
+> typeof(x)
+'function'
+> x()
+Bar
+undefined
+> 
+
+so bar is not created unless foo is excuted, and then 
+
+> 
+> function foo() {
+... function bar() {
+..... console.log('Bar');
+..... }
+... return bar;
+... }
+undefined
+> let x = foo()
+undefined
+> typeof(x)
+'function'
+> x()
+Bar
+undefined
+> 
+> foo()
+[Function: bar]
+> 
+> 
+> 
+> foo()()
+Bar
+undefined
+
+
+foo()() is called as short circuting.
+
+----
+
+clousre (fact that, inner function has access to outter function scope)
+-------
+
+DO it in Atom editor or intillj
+
+first get path for node, use below commands
+INR1600230:nvm ManjunathM$ whereis node
+INR1600230:nvm ManjunathM$ which node
+/Users/ManjunathM/nvm/versions/node/v6.11.2/bin/node
+INR1600230:nvm ManjunathM$ 
+
+Next, set the path on Intellij Terminal window, use below cmd to set PATH
+
+INR1600230:node-react-training ManjunathM$ node
+bash: node: command not found
+INR1600230:node-react-training ManjunathM$ export PATH=$PATH:/Users/ManjunathM/nvm/versions/node/v6.11.2/bin
+INR1600230:node-react-training ManjunathM$ node --version
+v6.11.2
+INR1600230:node-react-training ManjunathM$ node closures.js 
+Bar
+INR1600230:node-react-training ManjunathM$ node closures.js 
+5
+
+
+1:
+
+function foo() {
+    function bar() {
+        console.log('Bar');
+    }
+    return bar;
+}
+
+var x = foo();
+x();
+
+
+2:
+
+function foo(x) {
+    function bar(y) {
+        return x+y;
+    }
+    return bar;
+}
+
+var f = foo(2);
+console.log(f(3));
+
+a function within function is a closure. ANd, (fact that, inner function has access to outter function scope)
+
+
+how to create private function:
+
+function foo(x) {
+    let temp =20;
+    function sqaure(x) {
+        return x * x;
+    }
+    function bar(y) {
+        return x+y + temp;
+    }
+    return bar;
+}
+
+var f = foo(2);
+console.log(f(3));
+
+function sqaure(x) is private here.
+
+
+-----
+
+how to return multiple function - use array
+
+
+function foo(x) {
+    let temp =20;
+    function sqaure(x) {
+        return x * x;
+    }
+    function bar(y) {
+        return x+y + temp;
+    }
+    return {
+        bar: function(y){
+            return x+y+ sqaure(temp);
+        },
+        anotherPublic: function(){
+
+        }
+    };
+}
+
+var obj = foo(2);
+console.log(obj.bar(3));

@@ -1,0 +1,6 @@
+ES6:
+======
+
+npm init -y => create basic structure for node project
+
+babeljs.io online compiler
