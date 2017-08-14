@@ -29,6 +29,7 @@
     render() {
       return <div>This is the parent
        <ChildComponent value={this.state.value} />
+       console.log('Parent: ' + {this.state.value});
        <button onClick={this.sendPropsToChild}>Send props to child</button>        
       </div>
     }
@@ -38,6 +39,7 @@
  
     render() {
       console.log('render called');
+      console.log('Child: ' + this.props.value);
       return <div>This is child {this.props.value}</div>;
     }
   }

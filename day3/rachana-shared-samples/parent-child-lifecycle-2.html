@@ -29,7 +29,7 @@
     render() {
       return <div>This is the parent
        <DisplayComponent value={this.state.value} />
-       <ButtonComponent onClick={this.sendPropsToChild} />        
+       <ButtonComponent onClick={this.sendPropsToChild} />
       </div>
     }
   }
@@ -41,15 +41,15 @@
       return <div>This is the child {this.props.value}</div>;
     }
   }
-  
-  class ButtonComponent extends React.component {
+ 
+  class ButtonComponent extends React.Component {
       render() {
           return <div> This is child 2
           <button onClick={this.props.onClick}>Send props to child</button>
           </div>          
       }      
   }
-  
+
   ReactDOM.render(<ParentComponent />, document.getElementById('components'));
   </script>
 </body>
