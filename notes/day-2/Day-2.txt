@@ -1,0 +1,207 @@
+Day - 2:
+========
+recap:
+
+babel => src to src conversion
+
+webpack assignments add to course.
+
+--------------
+
+React
+
+to know react we need to know little about oop and functional programming.
+
+function in objects => 
+function as objects
+
+object in javascript is some space in memmory . it is basically Array, hash table.
+
+> var obj = {}
+undefined
+> obj.foo = function() {
+... }
+[Function]
+> obj.foo()
+undefined
+> var obj = {
+... x:10
+... }
+undefined
+> var obj = {
+... foo: function() {
+..... }
+... }
+undefined
+
+> var obj = {
+... foo() {
+..... }
+... }
+undefined
+
+this keyword:
+
+this is diff meaning in diff context. we can set context.
+
+if we type this on node console it gives global object
+but when we the this is in dom (brwoser) it refers to window object
+
+
+> global === this
+true
+
+
+> function foo() {
+... console.log(this);
+... }
+undefined
+> var obj = {x: 10}
+undefined
+> obj.foo = foo
+[Function: foo]
+> obj.foo()
+{ x: 10, foo: [Function: foo] }
+undefined
+
+> ((g) => {
+... g.x = 30;
+... }) (this)
+
+
+function as onjects =>
+now foo is function. And this can also be object.
+ex: we can do this foo.x = 10
+
+foo.x = 10
+10
+
+
+foo.name - gives name of the function
+
+
+> function sum(x,y){
+... return x+y;
+... }
+undefined
+> sum(2,3)
+5
+> sum.call(null,2,3)
+5
+> sum.apply(null,[2,3])
+5
+> 
+> 
+> function foo() {
+... console.log(this);
+... }
+undefined
+> foo.call({x:10, y:20})
+{ x: 10, y: 20 }
+undefined
+
+
+function within function are call, apply and bind
+
+prototype:
+
+> function Person() {
+... }
+undefined
+> Person.
+Person.__defineGetter__      Person.__defineSetter__      Person.__lookupGetter__      Person.__lookupSetter__      Person.__proto__             Person.constructor
+Person.hasOwnProperty        Person.isPrototypeOf         Person.propertyIsEnumerable  Person.toLocaleString        Person.toString              Person.valueOf
+
+Person.apply                 Person.arguments             Person.bind                  Person.call                  Person.caller                Person.length
+Person.name                  
+
+Person.prototype             
+
+> Person.prototype
+Person {}
+> Person.prototype.x = 10
+10
+> Person.prototype
+Person { x: 10 }
+> var p = new Person()
+undefined
+> p.x
+10
+> var p2 = new Person
+undefined
+> p2.x
+10
+> p.getName
+undefined
+> Person.prototype.getName = function() {
+... return this.name;
+... }
+[Function]
+> p.name = 'Manju'
+'Manju'
+> p.getName()
+'Manju'
+> p2.name
+undefined
+> p2.name = 'Manju2'
+'Manju2'
+> p2.name
+'Manju2'
+> p2.getName()
+'Manju2'
+> 
+> Person.prototype.getName = function() {
+... return 'Name: ' + this.name;
+... }
+[Function]
+> p2.getName()
+'Name: Manju2'
+
+> p.getName()
+'Name: Manju'
+> 
+
+> p.__proto__
+Person { x: 10, getName: [Function] }
+> 
+
+__proto__ => is secret link to prototype from objects
+
+
+================
+
+jquery was just get data to presentation and then presentation to data, which is used to send back to server.
+
+so jquery was taking lot of code to to this. then MVC born to slove this pattern. data-dinding b\w table-cell and data. this is called 2 way data binding.
+
+then backbone came. which is one way binding. data change will change UI change.
+later angular came which supports 2 way binding.
+
+React only does view changes but efficiently. so it is called as view libarary.
+but there are other support lib for react to do sync the data with server. many more.
+
+JSx helps write react code + js
+
+ReactDOM.render() => should only one root element.
+
+
+Propos: 
+
+
+---------
+
+Web components:
+
+---------------
+npm install -g http-server
+to run the server => http-server -o
+-o is to luunch the browser
+if not use this url to access http://127.0.0.1:8082/
+
+
+====
+
+Assignmrnt:
+
+Intro to ReactJS
+2-way data binding without any library, just plain javascrit
