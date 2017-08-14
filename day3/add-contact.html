@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact Application</title>
+    <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="contactApp"></div>
+<script type="text/babel">
+    class DisplayAllContacts extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                allContacts: []
+            };
+            this.styles = {
+                cellBorder: {
+                    border: '1px solid black'
+                }
+            };
+            this.addToAllContacts = this.addToAllContacts.bind(this);
+            this.getHTMLForContact = this.getHTMLForContact.bind(this);
+        }
+
+        componentWillReceiveProps(nextProps) {
+            if(nextProps.contact.name !== this.props.contact.name || nextProps.contact.phoneNo !== this.props.contact.phoneNo) {
+                this.addToAllContacts(nextProps.contact);
+            }
+        }
+
+        addToAllContacts(contact) {
+            var allContacts = Object.assign([], this.state.allContacts);
+            allContacts.push(contact);
+            this.setState({allContacts: allContacts});
+        }
+
+        getHTMLForContact(contact) {
+            return (
+                    <tr key={contact.name + contact.phoneNo}>
+        <td style={this.styles.cellBorder}>
+            {contact.name}
+        </td>
+            <td style={this.styles.cellBorder}>
+            {contact.phoneNo}
+        </td>
+            </tr>
+        );
+        }
+
+        render() {
+            if (this.state.allContacts.length === 0) {
+                return <div></div>;
+            }
+            var allContactsHTML = this.state.allContacts.map((contact) =>
+                    this.getHTMLForContact(contact)
+            );
+            return (
+                    <table style={this.styles.cellBorder}>
+        <thead>
+            <tr>
+            <th style={this.styles.cellBorder}>Name</th>
+            <th style={this.styles.cellBorder}>Phone No</th>
+            </tr>
+            </thead>
+            <tbody>
+            {allContactsHTML}
+            </tbody>
+            </table>
+        );
+        }
+    };
+
+    class AddContact extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                contact: {
+                    name: '',
+                    phoneNo: ''
+                }
+            };
+            this.handleChange = this.handleChange.bind(this);
+            this.addContact = this.addContact.bind(this);
+        }
+
+        handleChange(key) {
+            var that = this;
+            return function(event) {
+                var contact = Object.assign({}, that.state.contact);
+                contact[key] = event.target.value;
+                that.setState({contact: contact});
+            }
+        }
+
+        addContact() {
+            var contact = {
+                name: '',
+                phoneNo: ''
+            }
+            if(this.state.contact.name) {
+                this.props.addContact(this.state.contact);
+                this.setState({contact: contact});
+            } else {
+                alert('The name is mandatory');
+            }
+        }
+
+        render() {
+            return (
+                    <div>
+                    <h3>Add New Contact</h3>
+            <form>
+            <div>
+            <div><label>Name</label></div>
+            <input
+            type="text"
+            value={this.state.contact.name}
+            onChange={this.handleChange('name')} />
+        </div>
+            <div>
+            <div><label>Phone Number</label></div>
+            <input
+            type="number"
+            value={this.state.contact.phoneNo}
+            onChange={this.handleChange('phoneNo')} />
+        </div>
+            </form>
+            <button type="submit" onClick={this.addContact}>Add Contact</button>
+            </div>
+        );
+        }
+    };
+
+    class ContactApplication extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                contact: {
+                    name: '',
+                    phoneNo: ''
+                }
+            };
+            this.addContact = this.addContact.bind(this);
+        }
+
+        addContact(contact) {
+            this.setState({contact: contact});
+        }
+
+        render() {
+            return (
+                    <div>
+                    <DisplayAllContacts contact={this.state.contact} />
+        <AddContact
+            addContact={this.addContact} />
+        </div>
+        );
+        }
+    };
+
+    ReactDOM.render(<ContactApplication />, document.getElementById('contactApp'));
+</script>
+</body>
+</html>

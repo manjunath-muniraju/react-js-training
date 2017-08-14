@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact Application</title>
+    <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="    https://unpkg.com/react-data-grid@2.0.56/dist/react-data-grid.js"></script>
+
+</head>
+<body>
+<div id="contactApp"></div>
+<script type="text/babel">
+    class ContactApplication extends React.Component {
+        constructor(props) {
+            super(props);
+            this._columns = [
+                { key: 'id', name: 'ID' },
+                { key: 'name', name: 'Name' },
+                { key: 'phoneno', name: 'Phone Number' }
+            ];
+            this._rows = [
+                { 'id': 1, name : 'Manju', phoneno: '123213' },
+                { 'id': 1, name : 'Manju2', phoneno: '123213' },
+                { 'id': 1, name : 'Manju2', phoneno: '123213' }
+            ];
+
+        }
+
+        rowGetter(i) {
+            return this._rows[i];
+        },
+
+        render() {
+            return
+                    <ReactDataGrid
+            columns={this._columns}
+            rowGetter={this.rowGetter}
+            rowsCount={this._rows.length} />;
+
+    };
+    ReactDOM.render(<ContactApplication />, document.getElementById('contactApp'));
+</script>
+</body>
+</html>

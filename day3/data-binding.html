@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        </script>
+        <script>
+        class Person {
+            constructor() {
+                this.event_queue = {};
+            }
+            
+            set(field, value) {
+                this[field] = value;
+                this.notify(field);
+            }
+            
+            change(field, callback) {
+                if(!this.event_queue[field])
+                    this.event_queue[field] = [];
+                this.event_queue[field].push(callback);
+            }
+            
+            notify(field) {
+                if(!this.event_queue[field])
+                    return;
+                this.event_queue[field].forEach((callback) => {
+                    callback.apply(this);
+                });
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <div id="person">
+            <label id="namelabel"></label>
+            <label id="placelabel"></label>
+        </div>
+        <label>Name</label><input type="text" id="name">
+        <label>Place</label><input type="text" id="place">
+        <script>
+        (() => {
+            var p = new Person();
+            // We are attaching p to the global object for the purpose of 
+            // debugging and learning only
+            window.p = p;
+            let nameElement = document.getElementById('name');
+            let nameLabel = document.getElementById('namelabel');
+            let placeElement = document.getElementById('place');
+            let placeLabel = document.getElementById('placelabel');
+            nameElement.addEventListener('input', () => {
+                p.set('name', nameElement.value);
+            });
+            placeElement.addEventListener('input', () => {
+                p.set('place', placeElement.value);
+            });
+            p.change('name', () => {
+                nameLabel.innerText = p.name;
+                nameElement.value = p.name;
+            });
+            p.change('place', () => {
+                placeLabel.innerText = p.place;
+                placeElement.value = p.place;
+            });
+            p.set('name', 'Gautham');
+            p.set('place', 'Bengaluru');
+        })();
+        </script>
+    </body>
+</html>

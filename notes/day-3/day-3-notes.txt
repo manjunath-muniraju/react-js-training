@@ -1,0 +1,109 @@
+props is read-only
+
+we need state to change the UI.
+
+====
+        <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js">
+        {
+            overrideConsole: false,
+            startInNewWindow: true,
+            startOpened: true,
+            enableTrace: true
+        }
+====
+
+once we use plain JS, complexity increases like one component updates other part of the div. So, coupling incraeses
+
+so using State. And State (data model) will update the UI if there is a change in State. 
+And change in UI will changes in the State
+
+Which is earier => change in UI is easier because events listner are there.
+
+state
+
+
+metroid does syncing of three layers - UI - server - DB
+
+So how to achive 2 way dinding - without React - see example data-binding.html
+how other frameworks does this - case study
+1. http://backbonejs.org/docs/backbone.html
+2. http://knockoutjs.com/documentation/introduction.html - 
+
+in angular - there is digestive model where it will search all changes and made changes that is why event subscribe model is not there.
+
+now, angular was developed by Google and Chrome was also by google. So object.observe was born
+but community didnt agree - and it was later de-supported in chrome.
+
+Angular 2 - it will allow .set
+
+polyfills will provide support the desupport feature in the latest vesrion of Browser for some time. So the developers can do the chnages to the desupported code.
+
+mobeX
+Rudex
+
+======
+
+React came with props and state .
+
+=======
+
+we shouldnt chnage the state to update a item, we should make a copy of the state and then update the state, and then update that new contact to the state.
+
+delete is done.
+
+====
+
+search for => react data grid adazzle
+
+http://adazzle.github.io/react-data-grid/scripts/example01-basic.js
+
+
+===
+
+
+
+mkdir react-select-example
+cd/ react-select-example
+
+npm init -y
+
+npm install --save-dev babel-core babel-preset-env babel-preset-react webpack
+npm install --save-dev babel-loader style-loader css-loader
+npm install --save react react-dom react-select
+
+http://jnaapti.com/downloads/webpack.config.js
+module.exports = {
+  entry: './app/index.jsx',
+  module: {
+    rules: [{
+      test: /\.jsx$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'react']
+        }
+      }
+    }, {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ]
+    }]
+  },
+  output: {
+    filename: './dist/bundle.js'
+  }
+}
+
+develop index.html and index.jsx
+
+to run:
+`npm bin`/webpack
+
+======
+For hot devployment
+
+npm install --save-dev webpack-dev-server
+
+`npm bin`/webpack-dev-server
+
+now make changes for dropdown box in index.jsx file

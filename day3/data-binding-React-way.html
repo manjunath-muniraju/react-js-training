@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="content"></div>
+<script type="text/babel">
+    class TwoWayMessage extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                value: this.props.name
+            }
+            this.handleChange=this.handleChange.bind(this);
+        }
+        handleChange(event) {
+            this.setState({value: event.target.value});
+        }
+        render() {
+            return <div className="hellomessage">
+                    <div>{this.state.value}</div>
+            <input type="text" value={this.state.value} onChange={this.handleChange}></input>
+            </div>;
+        }
+    };
+    ReactDOM.render(<TwoWayMessage name="John" />, document.getElementById('content'));
+</script>
+</body>
+</html>

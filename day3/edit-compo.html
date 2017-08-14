@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="firstdiv"></div>
+<div id="seconddiv"></div>
+<script type="text/babel">
+    class EditBox extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {value: this.props.text};
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSave = this.handleSave.bind(this);
+            this.handleCancel = this.handleCancel.bind(this);
+        }
+
+        componentDidMount() {
+            document.querySelectorAll('.edit input')[0].focus();
+        }
+
+        handleChange(event) {
+            this.setState({value: event.target.value});
+        }
+
+        handleSave() {
+            this.props.onChange(this.state.value);
+            this.props.editCancel();
+        }
+
+        handleCancel() {
+            this.props.editCancel();
+        }
+
+        render() {
+            return <div className="edit">
+                    <input type="text" value={this.state.value} onChange={this.handleChange}></input>
+            <button onClick={this.handleSave}>Save</button>
+            <button onClick={this.handleCancel}>Cancel</button>
+            </div>;
+        }
+    };
+
+    class EditableDisplay extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                edit: false,
+                value: this.props.text
+            };
+            this.handleChange = this.handleChange.bind(this);
+            this.toggleEditable = this.toggleEditable.bind(this);
+        }
+
+        handleChange(newValue) {
+            this.setState({value: newValue});
+        }
+
+        toggleEditable() {
+            this.setState({edit: !this.state.edit});
+        }
+
+        render() {
+            return <div>
+            {this.state.edit ?
+        <EditBox text={this.state.value} onChange={this.handleChange} editCancel={this.toggleEditable}/>
+        : <div onClick={this.toggleEditable}>{this.state.value}</div>}
+        </div>;
+        }
+    };
+
+    ReactDOM.render(<EditableDisplay text="John Doe" />, document.getElementById('firstdiv'));
+    ReactDOM.render(<EditableDisplay text="Martha Doe" />, document.getElementById('seconddiv'));
+</script>
+</body>
+</html>

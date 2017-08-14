@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Lifecycle Methods</title>
+    <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://getfirebug.com/firebug-lite.js">
+        {
+            overrideConsole: true,
+                    startInNewWindow: false,
+                startOpened: true,
+        }
+    </script>
+</head>
+<body>
+<div id="components"></div>
+<script type="text/babel">
+    class ParentComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            this.sendPropsToChild = this.sendPropsToChild.bind(this);
+            this.addChild = this.addChild.bind(this);
+            this.removeChild = this.removeChild.bind(this);
+            this.state = {
+                childShown: true,
+                value: 1
+            };
+        }
+
+        sendPropsToChild() {
+            this.setState({
+                value: this.state.value + 1
+            });
+        }
+
+        addChild() {
+            this.setState({
+                childShown: true
+            });
+        }
+
+        removeChild() {
+            this.setState({
+                childShown: false
+            });
+        }
+
+        render() {
+            return <div>This is the parent
+            {this.state.childShown ? <ChildComponent value={this.state.value} />: <div />}
+        <button onClick={this.sendPropsToChild}>Send props to child</button>
+            <button onClick={this.addChild}>Add child</button>
+            <button onClick={this.removeChild}>Remove child</button>
+            </div>
+        }
+    }
+
+    class ChildComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            console.log('constructor called');
+        }
+
+        componentWillMount() {
+            console.log('componentWillMount called');
+        }
+
+        componentDidMount() {
+            console.log('componentDidMount called');
+        }
+
+        shouldComponentUpdate(nextProps) {
+            console.log('shouldComponentUpdate called');
+            // We are mimicing that if the value is an odd number don't update
+            return nextProps.value % 2 == 0;
+        }
+
+        componentWillReceiveProps(nextProps) {
+            console.log('componentWillReceiveProps called', nextProps);
+        }
+
+        componentWillUpdate() {
+            console.log('componentWillUpdate called');
+        }
+
+        componentDidUpdate() {
+            console.log('componentDidUpdate called');
+        }
+
+        componentWillUnmount() {
+            console.log('componentWillUnmount called');
+        }
+
+        render() {
+            console.log('render called');
+            return <div>This is the child</div>;
+        }
+    }
+
+    ReactDOM.render(<ParentComponent />, document.getElementById('components'));
+</script>
+</body>
+</html>
