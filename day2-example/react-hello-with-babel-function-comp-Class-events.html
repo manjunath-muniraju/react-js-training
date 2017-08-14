@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+    /* with JSx support babel.min.js */
+    class Name extends React.Component {
+        render() {
+            return <h1> {this.props.name}</h1>;
+        }
+    }
+
+    class Location extends React.Component {
+        render(){
+            return <h2> {this.props.place}</h2>;
+        }
+    }
+
+    class Person extends React.Component {
+        render() {
+            return <div className = "person">
+                    <Name name={this.props.person.name} />
+        <Location place={this.props.person.place} />
+        </div>;
+        }
+
+    }
+
+    class AddContact extends React.Component {
+        addContact(){
+            console.log('add contact was called');
+            alert('clicked');
+        }
+        render(){
+        return <div>
+                    <h2>
+                        Add Contact
+                    </h2>
+                    <div>
+                        <label htmlFor="">Name</label>
+                            <input type="text"/>
+                            </div>
+                    <div>
+                    <label htmlFor="">Place</label>
+                    <input type="text"/>
+                    </div>
+            <button onClick={(events) => this.addContact()}>Click me</button>
+                    </div>
+        }
+    }
+
+    let contacts = [
+        { id: 1, name: 'Manju', place: 'Bengaluru'},
+        { id: 2, name: 'Pranav', place: 'Basavesh'}
+    ]
+
+
+    /* we put all the html code in function and we just calling that function in ReactDOM.render() */
+    ReactDOM.render(
+    <div>
+        {contacts.map(contact => <Person key={contact.id} person={contact} />)}
+        <AddContact />
+    </div>, document.getElementById('app'));
+</script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+    /* with JSx support babel.min.js */
+    function Person(props){
+        return <div>
+        <h1 id="header">Hello {props.person.name} !!!</h1>
+        <h2>Location: {props.person.place}</h2>
+        </div>;
+    }
+
+    let p = {
+        name: 'Manju',
+        place: 'Bengaluru'
+    }
+    /* we put all the html code in function and we just calling that function in ReactDOM.render() */
+    ReactDOM.render(<Person person={p} />, document.getElementById('app'));
+</script>
+</body>
+
+</html>
