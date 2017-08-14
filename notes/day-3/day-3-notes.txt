@@ -106,4 +106,7 @@ npm install --save-dev webpack-dev-server
 
 `npm bin`/webpack-dev-server
 
-now make changes for dropdown box in index.jsx file
+now make changes for dropdown box in index.jsx file and changes will get affected on the fly..
+
+https://github.com/JedWatson/react-select
+======

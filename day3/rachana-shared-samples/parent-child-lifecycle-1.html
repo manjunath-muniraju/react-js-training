@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Lifecycle Methods</title>
+  <script src="https://unpkg.com/react@15.6.1/dist/react.min.js"></script>
+  <script src="https://unpkg.com/react-dom@15.6.1/dist/react-dom.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="components"></div>
+  <script type="text/babel">
+  class ParentComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.sendPropsToChild = this.sendPropsToChild.bind(this);
+      
+      this.state = {      
+        value: 1
+      };
+    }
+  
+    sendPropsToChild() {
+      this.setState({
+        value: this.state.value + 1
+      });
+    }
+  
+    render() {
+      return <div>This is the parent
+       <ChildComponent value={this.state.value} />
+       <button onClick={this.sendPropsToChild}>Send props to child</button>        
+      </div>
+    }
+  }
+  
+  class ChildComponent extends React.Component {
+ 
+    render() {
+      console.log('render called');
+      return <div>This is child {this.props.value}</div>;
+    }
+  }
+  
+  ReactDOM.render(<ParentComponent />, document.getElementById('components'));
+  </script>
+</body>
+</html>
