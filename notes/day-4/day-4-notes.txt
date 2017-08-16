@@ -1,0 +1,175 @@
+recap:
+
+react select to run .jxs
+
+====
+
+do not use inhertinace for components. use higher order function (HOC higer order components)
+event emitter
+
+--------
+
+validation using propTypes - chapter 9
+here we have not used min js becasue min js will not enforce types of the data.
+
+this is only for Dev mode
+
+------
+
+re
+
+
+refer - http://jnaapti.com/blog/ on validation using json
+
+-------------
+
+Generators and Iterators:
+
+Iterators - iterate the items in an array.
+
+Generator - are used to generate values on which we can iterate on.
+
+
+ES6 has taken lot of feature from Python. So best place to refer is Python.
+
+------
+
+symbols - is primiive datatype.
+
+Number
+
+> Number(1)
+1
+> 1
+1
+> String('Hello')
+'Hello'
+> typeof(Number(1))
+'number'
+> typeof(String('Hello'))
+'string'
+> typeof(new String('Hello'))
+'object'
+> Symbol
+[Function: Symbol]
+
+		> typeof(new String('Hello'))
+'object'
+> 
+> 
+> 
+> Symbol('Hello')
+Symbol(Hello)
+> typeof(Symbol('Hello'))
+'symbol'
+> 
+> Symbol('Hello') === Symbol('Hello')
+false
+> 
+> Symbol()
+Symbol()
+> 
+
+====
+
+so in ES6 - array keys can be string of symbols
+
+let s1 = Symbol('Hello')
+undefined
+> s1
+Symbol(Hello)
+> let obj = {}
+undefined
+> obj[s1] = 'Some value'
+'Some value'
+> obj
+{ [Symbol(Hello)]: 'Some value' }
+> Object.keys(obj)
+[]
+> JSON.stringify(obj)
+'{}'
+> Object.getOwn
+undefined
+> Object.getOwnPropertyNames(obj)
+[]
+> Object.getOwnPropertySymbols(obj)
+[ Symbol(Hello) ]
+> obj[Symbol('Hello')]
+undefined
+> obj[s1]
+'Some value'
+> obj.x = 10
+10
+> for (let key in obj)
+... console.log(key, obj[key]);
+x 10
+undefined
+> 
+
+======
+
+
+Symbol + iterator
+
+> let arr = [1,2,3]
+undefined
+> Array.prototype
+[]
+> Object.getOwnProperty
+Object.getOwnPropertyDescriptor   Object.getOwnPropertyDescriptors  Object.getOwnPropertyNames        Object.getOwnPropertySymbols      
+
+> Object.getOwnProperty
+undefined
+> 
+> 
+> Object.getOwnPropertySymbols(Array.prototype)
+[ Symbol(Symbol.unscopables), Symbol(Symbol.iterator) ]
+> Symbol.iterator
+Symbol(Symbol.iterator)
+> typeof(Symbol.iterator)
+'symbol'
+> arr[Symbol.iterator]
+[Function: values]
+> let x = arr[Symbol.iterator]()
+undefined
+> x
+{}
+> typeof(x)
+'object'
+> x.
+x.__defineGetter__      x.__defineSetter__      x.__lookupGetter__      x.__lookupSetter__      x.__proto__             x.constructor           x.hasOwnProperty        x.isPrototypeOf
+x.propertyIsEnumerable  x.toLocaleString        x.toString              x.valueOf               
+
+x.next                  
+
+> x.next
+[Function: next]
+> x.next()
+{ value: 1, done: false }
+> x.next()
+{ value: 2, done: false }
+> x.next()
+{ value: 3, done: false }
+> x.next()
+{ value: undefined, done: true }
+> 
+====
+
+iter tools in python
+====
+
+
+async await:
+
+syncronise - the thread will wait for i/o mostly;
+
+non-sync io - 
+issue with async - callback hell - callback inside callback the tree grows
+
+to comeout of this issue - we can node module called async lib.
+
+https://caolan.github.io/async/docs.html
+
+or we can use promise .. better than async ... lesser code.
+
+open(f, mode) will return promise object (just like future object in java)
