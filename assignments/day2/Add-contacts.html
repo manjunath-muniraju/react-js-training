@@ -13,13 +13,30 @@
     class DisplayAllContacts extends React.Component {
       constructor(props) {
         super(props);
+        this.state = {
+          allContacts: []
+        };
         this.styles = {
           cellBorder: {
-            border: '1px dotted black'
+            border: '1px solid black'
           }
         };
+        this.addToAllContacts = this.addToAllContacts.bind(this);
+        this.getHTMLForContact = this.getHTMLForContact.bind(this);
       }
-
+      
+      componentWillReceiveProps(nextProps) {
+        if(nextProps.contact.name !== this.props.contact.name || nextProps.contact.phoneNo !== this.props.contact.phoneNo) {
+          this.addToAllContacts(nextProps.contact);
+        }
+      }
+      
+      addToAllContacts(contact) {
+        var allContacts = Object.assign([], this.state.allContacts);
+        allContacts.push(contact);
+        this.setState({allContacts: allContacts});
+      }
+      
       getHTMLForContact(contact) {
         return (
           <tr key={contact.name + contact.phoneNo}>
@@ -29,40 +46,39 @@
             <td style={this.styles.cellBorder}>
               {contact.phoneNo}
             </td>
-            <td style={this.styles.cellBorder}>
-              <button onClick={this.props.deleteContact(contact.id)}>Delete</button>
-            </td>
           </tr>
         );
       }
-
+      
       render() {
-        if (this.props.contacts.length === 0) {
+        if (this.state.allContacts.length === 0) {
           return <div></div>;
         }
+        var allContactsHTML = this.state.allContacts.map((contact) =>
+          this.getHTMLForContact(contact)
+        );
         return (
           <table style={this.styles.cellBorder}>
             <thead>
               <tr>
                 <th style={this.styles.cellBorder}>Name</th>
                 <th style={this.styles.cellBorder}>Phone No</th>
-                <th style={this.styles.cellBorder}>Delete</th>
+				<th style={this.styles.cellBorder}>Edit</th>
               </tr>
             </thead>
             <tbody>
-              {this.props.contacts.map((contact) => this.getHTMLForContact(contact))}
+              {allContactsHTML}
             </tbody>
           </table>
         );
       }
     };
-
+    
     class AddContact extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
           contact: {
-            id:'',
             name: '',
             phoneNo: ''
           }
@@ -70,15 +86,16 @@
         this.handleChange = this.handleChange.bind(this);
         this.addContact = this.addContact.bind(this);
       }
-
+      
       handleChange(key) {
-        return (event) => {
-          var contact = Object.assign({}, this.state.contact);
+        var that = this;
+        return function(event) {
+          var contact = Object.assign({}, that.state.contact);
           contact[key] = event.target.value;
-          this.setState({contact: contact});
+          that.setState({contact: contact});
         }
       }
-
+      
       addContact() {
         var contact = {
           name: '',
@@ -91,7 +108,7 @@
             alert('The name is mandatory');
         }
       }
-
+      
       render() {
         return (
           <div>
@@ -117,43 +134,34 @@
         );
       }
     };
-
+    
     class ContactApplication extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          allContacts: []
+          contact: {
+            name: '',
+            phoneNo: ''
+          }
         };
-        this.index=1;
-        this.addToAllContacts = this.addToAllContacts.bind(this);
-        this.deleteContact = this.deleteContact.bind(this);
+        this.addContact = this.addContact.bind(this);
       }
-
-      addToAllContacts(contact) {
-        var allContacts = Object.assign([], this.state.allContacts);
-        contact.id=this.index++;
-        allContacts.push(contact);
-        this.setState({allContacts: allContacts});
+      
+      addContact(contact) {
+        this.setState({contact: contact});
       }
-
-      deleteContact(id){
-        return(event)=>{
-          this.setState({
-            allContacts:this.state.allContacts.filter((contact => contact.id !== id))
-          });
-        }
-      }
-
+      
       render() {
         return (
           <div>
-            <DisplayAllContacts contacts={this.state.allContacts} deleteContact={this.deleteContact} />
-            <AddContact addContact={this.addToAllContacts} />
+            <DisplayAllContacts contact={this.state.contact} />
+            <AddContact
+              addContact={this.addContact} />
           </div>
         );
       }
     };
-
+    
     ReactDOM.render(<ContactApplication />, document.getElementById('contactApp'));
   </script>
 </body>
