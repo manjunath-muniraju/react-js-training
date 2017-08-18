@@ -1,0 +1,168 @@
+New Techonologies for state management system (client side state Mang. Sys)
+-Mobx and Redux
+
+Anti-pattern in J2ee:
+make db connection in jsp.
+
+Similar anti-pattern also exists in React
+if two component needs same data/model we do two different ajax calls - this anti-pattern. How to solve this.
+
+container or smart compenent - responsible to make ajax calls and responsible to make changes to app state - callbacks - centalized state change design
+presenation components - should not make ajay calls or appliaction state changes shouldnt be done - and calling of the callbacks can be done
+
+this is sloved in J2ee would by many framework like spring/hibernate
+
+if we dont follow any pattern then it is anybody can talk with any component.
+
+or using Redux/mobex we can container talks to => child component => grandchild component => it grows grand grandchild
+here hirarchy should be followed to pass any props or callbacks
+
+but with event emitters a container can talk to child, grandchild bypassing the hierarcy.
+
+Hello-world example for Mobx:
+
+mkdir mobx-hello-world
+cd mobx-hello-world/
+npm init -y
+npm install --save mobx
+
+create hello.js
+
+store is a container for state in Mobx
+
+object paradiam
+reactive paradiam = this similar to spreadsheet
+
+   A
+  ------------
+  | 1| | | | | 
+  ------------
+  | 2| | | | |
+
+  cells in spread sheet is reactive , when data is available it starts calculation
+
+
+  Decorator is similar to Annotations in Java:
+  Anotation are used to address cross cutting concerns - this are also called Aspect-orinted programming.
+
+
+  with mobx we can shortcut many things:
+
+  like
+
+  @observable value = 0;
+  constructor() {
+        this.report = this.report.bind(this);
+        mobx.autorun(this.report)
+    }
+
+  instead of 
+
+  constructor() {
+        mobx.extendObservable(this, {
+            value: 0
+        })
+        this.report = this.report.bind(this);
+        mobx.autorun(this.report)
+    }
+
+    So, this works in ES7:
+
+    npm install --save-dev babel-cli babel-plugin-transform-decorators-legacy babel-preset-env babel-preset-stage-1
+
+    now run the example with
+    `npm bin`/babel-node decorator-with-babel.js
+
+-----------
+    NOW, we will see same functionality in Redux
+
+    Redux uses functional paradiam
+    pure function - pure fucnction does not modify the input arguments (passed parameter) and does not have side effect
+    	- values are immutable
+    	- useful in multi threading, since value doesnt change lock is not neccessry.
+
+state + action (increment) => new state
+
+states are immutable
+
+Reducer function: - > any modifiction is done using rducer function
+function reducer(state, action) {
+	return newState
+}
+
+Hello-world-redux:
+
+mkdir redux-hello-world
+cd redux-hello-world/
+npm init -y
+npm install --save redux
+
+
+======
+
+Redux will have only one store for entry app. where as mobx has muultiple store.
+
+
+redux todo
+
+https://github.com/reactjs/redux/tree/master/examples/todos/src
+
+====
+Mobx and REACT
+
+mkdir mobx-react-hello-world
+cd mobx-react-hello-world
+
+npm init -y
+npm install --save react react-dom mobx mobx-react
+npm install --save-dev webpack webpack-dev-server babel-loader
+
+
+copy webpack.config.js
+
+module.exports = {
+  entry: './app/index.jsx',
+  module: {
+    rules: [{
+      test: /\.jsx$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'stage-1', 'react'],
+          plugins: ['transform-decorators-legacy']
+        }
+      }
+    }]
+  },
+  output: {
+    filename: './dist/bundle.js'
+  }
+}
+
+mobx is like magic .
+
+=======
+
+Redux with react:
+
+additional package is 'react-redux' is required
+
+provider => container => presentation => container => provider
+here container is acting as a mediator b/w provder and presentation
+
+from provder to presentation state is passed as props.value to prersnation
+now from presenation there could be pure view or callback, which is dispatch
+
+go thru counter example in virtual coach
+
+=======
+
+
+checj this => https://github.com/reactjs/redux/blob/master/examples/todos/src/components/App.js
+
+
+
+
+
+
