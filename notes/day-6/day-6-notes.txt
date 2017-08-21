@@ -1,0 +1,221 @@
+web driver 
+
+each browser will have web driver
+selenium or any other testing tool will interacts with web driver to give instructions
+
+Any OS comes with below options:
+server edition - No GUI, only terminal to interact with OS
+window manager
+
+So now we need window manager to run brwoswer
+so for this, tehre is headless Browsers. Ex: chrome has headless mode, caspter JS (Firefox) and Fantom JS (Chrome)
+
+Seleinum can be configured to work with any browser and any headless browser.
+
+JSDOM :
+
+client (browser JS)   |    Server (Node JS)
+
+both JS are same in some basic perspective. But there is some feature in Node JS will not have in Browser JS and visa-versa
+
+like:
+
+Browser JS contains: (these are not there in nodeJS)
+Window
+document
+navigatioor
+DOM functionality
+
+Servre Node JS:
+File management
+
+
+So, now JSDOM has ability to bring brwser JS capablities in Node JS.
+
+React
+ReactDOM
+JSDOM
+React Test utilities
+React Test Renderer
+Enzyme (gives all above capabilies like query based interaction)
+	- Mocha (test runner like test suite, test directors)
+	- Jest (runner)
+Assertion libraries
+	- assert
+	- chai
+	- Sinon spies 
+
+Mockers (library) - mocking the server call.
+	- fetch-mock
+
+-----
+
+
+We will cover JSDOM, Mocha and Jest.
+
+JSDOM:
+
+mkdir day6-examples/
+cd day6-examples/
+npm init -y
+npm install --save-dev jsdom
+
+js dom can be insalled in dev.
+
+https://jquery.com/download/ - to get jquery src link.
+
+JSDOM is light it is puerly to contruct the dom without a browser.
+
+-----
+
+Mocha - is pure test runners.
+
+mkdir mocha-examples
+cd mocha-examples
+npm init -y
+install --save-dev mocha
+
+create basic.test.js
+
+here 'basic' is actual file and '.test' is corrseponding test for basic file. This is just convention, so that when we need to run the test we can tell *.test.js
+
+
+to run the test: 
+
+`npm bin`/mocha *.test.js
+
+
+`npm bin`/mocha -w *.test.js
+
+-w is watch mode
+
+change in json.package
+
+"scripts": {
+    "test": "mocha -w *.test.js"
+  },
+
+
+  now just cmd:
+
+  npm test
+
+  if we need to customize:
+
+  "devtest": "mocha -w *.test.js", ===> in package.json
+
+  now cmd will be:
+
+
+`npm bin`/mocha --help
+
+=======
+
+
+jest
+
+
+mkdir jest-examples
+cd  jest-examples
+
+npm init -y
+npm install jest-cli
+
+
+now copy the prevoues test file and do some modification.
+
+cmd:
+`npm bin`/jest
+
+
+these are generic testing tool
+
+--------
+
+now we will put these two things (mocha and jest) into React
+
+now move to mocha-example and install jsdom
+in same project install JSDOM
+
+cmd:
+
+ `npm bin`/mocha *.test.js
+
+======
+
+
+Now react test utilities
+
+
+now create src and test
+
+npm install 
+npm install --save-dev babel-core babel-preset-env babel-preset-react
+
+------
+
+https://facebook.github.io/react/docs/test-utils.html
+
+
+------
+
+Anzyme:
+
+npm install --save-dev enzyme react-test-renderer
+
+import {mount} from enzyme
+
+mount(<MyComponent />)
+assert.equal(component.find('h1').first().text(), 'Hello World')
+
+http://airbnb.io/enzyme/docs/api/mount.html
+
+We should test one component at a time.
+
+Shallow rendering - 
+
+-----
+
+we have to do same example in jest:
+
+npm install --save-dev 
+
+----- 
+
+today's content is about 20 lessons in virtual coach.
+
+access will be avaialble till 28th Aug.
+
+------
+
+Routing:
+
+vcoach/user-id/course-id/skill-id
+
+Histroy APIs (this implemented in HTML5)
+
+histroy.pushState
+window.onpopState
+
+
+kdir react-router-example
+
+npm init -y
+
+npm install --save react react-dom babel-core babel-preset-env babel-preset-react webpack babel-loader react-router-dom
+
+`npm bin`/webpack or
+`npm bin`/webpack-dev-server
+
+
+======
+
+Assisgnmet: serach for
+
+jsdom
+mocha
+jest
+headless brwosers
+
+react good youtube tutor is there
+headx => good 
